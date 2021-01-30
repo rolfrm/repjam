@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Brain Ball</title>
+  <script src="https://unpkg.com/vue@next"></script>
+  <meta charset="utf-8" />
+  <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />-->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <div id="startup" v-if="state === 'Stopped'">
+      <p>Design Your Workout</p>
+      <p>Select difficulty</p>
+      <select v-model="level">
+        <option v-for="item in levels" v-bind:value="item.level">
+          {{item.name}}
+        </option>
+      </select>
+
+      <div v-for="item in categories">
+        <p>{{item.name}}  </p>
+         <input type="range" min="1" max="5" class="slider" v-bind:value="item.weight"/>
+      </div>
+      <button @click="Persist">Persist</button>
+      <button @click="OnGo">Go</button>
+    </div>
+    <div id="activity" v-if="state !== 'Stopped'"
+     tabindex="0"
+    >
+      <button @click="OnStop">Stop</button>
+      <button @click="OnPause">Pause</button>
+      <p class="ball">{{countdown}}</p>
+      
+      <div class="ball" v-if="ball != ''" id="ballView">
+        {{ball.name}} 
+        <div v-if="ball.count">
+          <p>Count: {{ball.count}}</p>
+        </div>
+        <div v-if="ball.time">
+          Time: {{ball.time}}
+        </div>
+        <div v-if="ball.song">
+          Song: {{ball.song}}
+        </div>
+        <div v-if="ball.math">
+          Calc: {{ball.a}}{{ball.math}}{{ball.b}}
+        </div>
+        <Button @click="CountedDone">Done</Button>
+      </div>
+    </div>
+  </div>
+  <script src="./index.js" type='text/javascript'></script>
+</body>
+</html>

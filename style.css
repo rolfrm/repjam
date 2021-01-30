@@ -1,0 +1,22 @@
+@import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/fira_code.css);
+@import url(//fonts.googleapis.com/css?family=Lora);
+html,
+    body {
+      margin: 0;
+      position: fixed;
+      font-family: Lora, serif;
+ 
+    }
+*:focus {
+    outline: none;
+}
+p, a {
+  font-family: Lora,Serif; 
+}
+.code{
+  font-family: 'Fira Code';
+}
+
+.ball{
+  font-size:40px;
+}
