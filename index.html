@@ -3,6 +3,8 @@
 <head>
   <title>Brain Ball</title>
   <script src="https://unpkg.com/vue@next"></script>
+  <script src="hjson.js"></script>
+  
   <meta charset="utf-8" />
   <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />-->
@@ -21,7 +23,7 @@
 
       <div v-for="item in categories">
         <p>{{item.name}}  </p>
-         <input type="range" min="1" max="5" class="slider" v-bind:value="item.weight"/>
+         <input type="range" min="1" max="5" class="slider" v-model="item.weight"/>
       </div>
       <button @click="Persist">Persist</button>
       <button @click="OnGo">Go</button>
@@ -46,6 +48,9 @@
         </div>
         <div v-if="ball.math">
           Calc: {{ball.a}}{{ball.math}}{{ball.b}}
+        </div>
+        <div v-if="ball.mem">
+          {{ball.mem.index + 1}} / {{ball.mem.items.length}}: {{ball.mem.current}}
         </div>
         <Button @click="CountedDone">Done</Button>
       </div>

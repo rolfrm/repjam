@@ -1,25 +1,25 @@
 [
-    { name: "Stretch", time: 30, tag:"flex" },
-    { name: "Toe touches", count: 20, tag:"flex" },
+    { name: 'Stretch', time: 30, tag:"flex|warmup" },
+    { name: "Toe touches", count: 20, tag:"flex|warmup" },
     { name: "Bridge", time: 20 , tag:"flex|core"},
     { name: "Push Ups", count: 10 , tag:"upper-str"},
-    { name: "Push-up hold (3sec)", count: 6 , tag:"upper-body"},
+    { name: "Push-up hold (3sec)", count: 6 , tag:"upper-body|warmup"},
 
-    { name: "Downward Facing Dog", time: 30 , tag:"flex|static"},
+    { name: "Downward Facing Dog", time: 30 , tag:"flex|static|warmup"},
     { name: "Side Plank Left/Right", time: 30 , tag:"upper-str|core|static"},
-    { name: "Plank", time: 30 , tag:"core|static"},
+    { name: "Plank", time: 30 , tag:"core|static|warmup"},
     { name: "Finger Plank", time: 15 , tag:"core|static"},
     { name: "One Arm Plank Left/Right", time: 30 , tag:"core|static"},
     
-    { name: "Flutter Kicks", time: 20 , tag:"core"},
+    { name: "Flutter Kicks", time: 20 , tag:"core|warmup"},
     
-    { name: "Squats", count: 30 , tag:"lower-body"},
+    { name: "Squats", count: 30 , tag:"lower-body|warmup"},
     { name: "Jumping Squats", count: 15 , tag:"lower-body"},
     { name: "Side Squats", count: 20 , tag:"lower-body"},
     { name: "Wall Sit", time: 60 , tag:"lower-body"},
-    { name: "Sumo Squats", count: 20 , tag:"lower-body"},
+    { name: "Sumo Squats", count: 20 , tag:"lower-body|warmup"},
     { name: "Bulgarian Split Squats", count: 20 , tag:"lower-body"},
-    { name: "Good Morning into Squats", count: 20 , tag:"lower-body"},
+    { name: "Good Morning into Squats", count: 20 , tag:"lower-body|warmup"},
     { name: "Pistols / One-Legged squats", count: 10 , tag:"lower-body"},
 
     { name: "Lounges", count: 30 , tag:"lower-body"},
@@ -33,12 +33,12 @@
     
     { name: "Hollow Rocks", count: 10 , tag:"core"},
     { name: "V-Ups", count: 10 , tag:"core"},
-    { name: "Sit-ups", count: 20 , tag:"core"},
+    { name: "Sit-ups", count: 20 , tag:"core|warmup"},
     { name: "Atomic Sit-ups", count: 20 , tag:"core"},
     { name: "Toe-touch Sit-ups", count: 10 , tag:"core"},
-    { name: "Good Mornings", count: 10 , tag:"core"},
+    { name: "Good Mornings", count: 10 , tag:"core|warmup"},
     { name: "one foot toe touches left/right", count: 20 , tag:"core|flex"},
-    { name: "Hollow-hold", time: 30 , tag:"core"},
+    { name: "Hollow Hold", time: 30 , tag:"core"},
 
     { name: "Jumping Jacks", count: 30 , tag:"cardio"},
     { name: "Ski Runners", count: 30 , tag:"cardio"},
@@ -56,7 +56,7 @@
     { name: "Scabular Shrugs", count: 10 , tag:"upper-body"},
     { name: "Handstand Push-up",count: 10 , tag:"upper-body"},
     { name: "Downward-faing-dog-Handstand Push-up", count: 4 , tag:"upper-body"},
-    { name: "Dips", count: 10 , tag:"upper-body"},
+    { name: "Dips", count: 10 , tag:"upper-body" },
     { name: "Back extension", count: 10 , tag:"core"},
     
     { name: "Pull up", count: 10 , tag:"upper-body"},
@@ -75,43 +75,29 @@
     { name: "Walkout to superman", count: 3, tag:"core|upper-body"},
     { name: "Shoulder Taps", count: 20, tag:"core|upper-body"},
 
-    { name: "Sketching", time: 120, tag:"drawing"},
-    { name: "Trivia", select-url:"./trivia.html", tag:'brain'},
-    { name: "Mandarin", select-url:"./mandarin.html", tag:'brain|chinese'},
-    { name: "Japanese", select-url:"./mandarin.html", tag:'brain|japanese'},
-    { name: "Write a quick song", count: 1, tag:'brain|music'},
-    { name: "Play a Solo", count: 1, tag:'brain|music'},
-    { name: "Add new Brain Ball", count: 1, tag:'brain'},
-    { name: "Do A Type-Racer", count: 1, tag:'brain'},
-    { name: "Add new Trivia", count: 5, tag:'brain'},
-    { name: "Create a joke about X", count:1, tag:'brain'},
-    { name: "Add", math:"+", range:1000, tag:'brain'},
-    { name: "Subtract", math:"-", range:1000, tag:'brain'},
-    { name: "Multiply", math:"*", range:20, tag:'brain'},
-    { name: "Memorize Things", things-from:"media/things.data", range:20, tag:'brain'},
-    { name: "Hex Number", math:"hex", range:32, tag:'brain'},
-    { name: "Memorize Digits", memorize:10, tag:'brain'}, // front/back
-    { name: "Sort Digits", memorize:6, tag:'brain'}, // biggest/smallest first
-    { name: "Learn a new joke and say it loud in different ways", count: 5, tag:'brain'}, // biggest/smallest first
-    { name: "Fast-typing", type-from:"media/frankenstein.txt", chars: 30, tag:'brain'},
+    { name: "Sketching", time: 120, tag:"creativity|drawing"},
+    //{ name: "Trivia", select-url:"./trivia.html", tag:'brain'},
+    //{ name: "Mandarin", select-url:"./mandarin.html", tag:'chinese|memory'},
+    //{ name: "Japanese", select-url:"./mandarin.html", tag:'japanese|memory'},
+    { name: "Write a quick song", count: 1, tag:'creativity|music'},
+    { name: "Play a Solo", count: 1, tag:'creativity|music'},
+    //{ name: "Add new Execize", count: 1, tag:'creativity'},
+    { name: "Do A Type-Racer", count: 1, tag:'reflex'},
+    //{ name: "Add new Trivia", count: 5, tag:'creativity'},
+    //{ name: "Create a joke about X", count:1, tag:'creativity'},
+    { name: "Add", math:"+", range:1000, tag:'math'},
+    { name: "Subtract", math:"-", range:1000, tag:'math'},
+    { name: "Multiply", math:"*", range:20, tag:'math'},
+    { name: "Memorize Things", memorize-from:"media/things.data", range:20, tag:'memory'},
+    //{ name: "Hex Number", math:"hex", range:32, tag:'math'},
+    { name: "Memorize Digits", memorize-from:"media/numbers.data", tag:'memory'}, // front/back
+    //{ name: "Sort Digits", memorize:6, tag:'memory'}, // biggest/smallest first
+    { name: "Learn a new joke and say it loud in different ways", count: 5, tag:'creativity|speech'}, // biggest/smallest first
+    //{ name: "Fast-typing", type-from:"media/frankenstein.txt", chars: 30, tag:'brain'},
     { name: "Write down gratitudes", count: 2, tag:'zen'},
     { name: "Imagine people smiling", count: 5, tag:'zen'},
     { name: "Feel Your Body(carry into next exercize)", time: 15, tag:'zen'},
     { name: "Write a positive comment on the internet", count: 1, tag:'zen'},
-    { name: "Play a song from the list", song-list:'media/songs', tag:'music'},
-
-
-
-
+    //{ name: "Play a song from the list", song-list:'media/song.data', tag:'music'},
+    //{ name: "Write Code From the list", song-list:'media/code.data', tag:'coding|creativity'},
 ]
-/*
-                //new CountedActivity(1, "Call a family member or friend"),
-                new CountedActivity(1, "Appriciate someone on the internet"),
-                new SelectFromFile{Name = "Play song {File}", File = "/home/romadsen/syncthing/songs/songs.data"},
-                new PageOpen{Name = "Mandarin", Page = "file:///home/romadsen/code/hiragana_learner/index.html?res=mandarin.data&offset=OFFSET&limit=LIMIT&kanji=true&swap=3"},
-                new PageOpen{Name = "Japanese", Page = "file:///home/romadsen/code/hiragana_learner/index.html?res=all.data&offset=OFFSET&limit=LIMIT&kanji=true&swap=3"}
-
-
-*/
-
-

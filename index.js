@@ -1,14 +1,21 @@
+
 function parseNumber(str) {
-    const parsed = parseInt(str);
+    const parsed = parseFloat(str);
     if (isNaN(parsed)) return null;
     return parsed;
 }
 function parse_args(url) {
     index = url.indexOf("?");
+    if(index == -1)
+       index == url.length;
     str = url.substring(index + 1);
     items = str.split("&");
     map = {}
-    items.map(x => x.split("=")).forEach(x => map[x[0]] = x[1]);
+    items.map(x => x.split("="))
+    .forEach(x=> {
+        if(x.length > 1)
+            map[x[0].replace(/%20/g," ")] = x[1].replace(/%20/g," ");
+    }); 
     return map;
 }
 
@@ -20,7 +27,7 @@ load_table = str => str.split("\n")
     .filter(x => x.length > 0);
 
 var countDownSound = new Audio('/media/s1.oga');
-var halftimeSound = new Audio('/media/s2.wav');
+var halftimeSound = new Audio('/media/s2.ogg');
 balls = []
 songs = []
 function load_vue() {
@@ -35,7 +42,7 @@ function load_vue() {
                     { name: 'Hard', level: 1.5},
                     { name: 'Brutal', level: 2.0}],
                 categories: [
-                        {name: 'Strength', weight: 5},
+                        {name: 'Strength', weight: 3},
                         {name: 'Cardio', weight: 5},
                         {name: 'Brain', weight: 5},
                         {name: 'Zen', weight: 5},
@@ -48,7 +55,6 @@ function load_vue() {
                 states:['Active', 'Paused', 'Stopped'],
                 state: 'Stopped',
                 active: null
-
                 }        
         },
         methods: {
@@ -68,6 +74,7 @@ function load_vue() {
                 }
             },
             OnGo: function () {
+                this.Persist();
                 this.ball = ""; 
                 this.state='Active';
                 
@@ -75,11 +82,14 @@ function load_vue() {
                     this.active.active = false;
                 this.GetNextBall();    
                 this.active = {active: true};
-                this.CountDown(5, ()=> this.NextBall(this.ball), i => {
+                countDownSecs = 4;
+                this.CountDown(countDownSecs, ()=> this.NextBall(this.ball), i => {
                     this.countdown = i;
                     if(i == 0)
                         this.countdown = "";
-                    countDownSound.play()}, this.active);
+                    if(i != countDownSecs)
+                        countDownSound.play();
+                }, this.active);
             },
             OnPause: function(){
                 this.state = 'Paused';
@@ -88,15 +98,39 @@ function load_vue() {
                 this.state = 'Stopped';
             },
             CountedDone: function() {
-                
+                if(this.ball.mem){
+                    // special state machine when memorize is used.
+                    m = this.ball.mem;
+                    if(m.index + 1 < m.items.length){
+                        m.index += 1
+                        m.current = m.items[m.index];
+                    }else if(!m.check){
+                        m.current = "Please recite"
+                        m.check = "start"
+                    }else if(m.check == "start"){
+                        m.current = m.items.join(", ");
+                        m.check = "end";
+                        return;
+                    }
+
+                    if(!m.check || m.check != "end"){
+                        return;
+                    }
+                }
                 this.OnGo();
             },
-            GetNextBall: function(){
+            GetNextBall: function(item){
                 len = balls.length;
                 index = Math.floor(Math.random() * len);
+                
                 console.info(len);
                 nextball = balls[index];
                 nextball = JSON.parse(JSON.stringify(nextball))
+
+                if(item && item.name){
+                    nextball = item;
+                }
+
                 if(nextball.count){
                     nextball.count = Math.floor(nextball.count * this.level);
 
@@ -123,12 +157,26 @@ function load_vue() {
                         this.ball.song = table[idx][0];
                     })
                 }
+                
+                if(nextball["memorize-from"]){
+                    this.ball.mem = {items: [], count: Math.floor(this.level *  6), current: "A", index: -1}
+                    fetch(nextball["memorize-from"])
+                    .then(r => r.text())
+                    .then(r => {
+                        items = load_table(r);
+                        for(i = 0; i < this.ball.mem.count; i++){
+                            idx = Math.floor(items.length *Math.random());
+                            this.ball.mem.items.push(items[idx][0]);
+                        }
+                        this.CountedDone();
+                    })
+                }
+
                 if(this.ball.math){
                     range = parseNumber(nextball.range);
                     this.ball.a = Math.floor(Math.random() * range);
                     this.ball.b = Math.floor(Math.random() * range);
                     console.info(String(this.ball))
-
                 }
 
                 console.log(this.ball.name);
@@ -145,40 +193,48 @@ function load_vue() {
                             halftimeSound.play();
                         }
                     }, this.active)
-
                 }
-                
             },
             handleKey: function(evt) {
+                if(document.activeElement && document.activeElement.type == "submit")
+                    return;
                 if (evt.keyCode === 13 ) {
                   this.CountedDone();
                 }
               },
             Persist: function(){
-                localStorage.categories = this.categories;
+                localStorage.categories = JSON.stringify(this.categories);
                 localStorage.level = this.level;
-                localStorage.levels = this.levels;
             }
         },
         mounted() {
             document.addEventListener('keyup', this.handleKey);
-            this.GetNextBall();
-            return;
-            if(localStorage.categories)
-                this.categories = localStorage.categories;
-            if(localStorage.levels)
-                this.levels = localStorage.levels;
+ 
             if(localStorage.level)
-                this.level = localStorage.level;
+                this.level = parseNumber(localStorage.level);
+            if(localStorage.categories)
+                this.categories = JSON.parse(localStorage.categories);
+            this.GetNextBall();
+            if(args['ball']){
+                
+                ball = balls.filter(x => x.name === args['ball'])[0]
+                if(ball){
+                    this.GetNextBall(ball);
+                    this.state='Active';
+                }
+            }
             
          },
          unmounted(){
             document.removeEventListener('keyup', this.handleKey);
          },
          watch: {
-             levels(newLevels){
-                 localStorage.levels = newLevels;
+             categories(newCategories){
+                
              },
+             level(newLevel){
+              
+             }
          }
     }
 
@@ -186,9 +242,11 @@ function load_vue() {
 }
 
 
-task = fetch("./brainballs.json")
-    .then(response => response.json())
-    .then(r => balls = r);
+task = fetch("/exercises.hjson")
+    .then(response => response.text())
+    .then(r => {
+      balls = Hjson.parse(r);
+    });
 
 task2 = fetch("./media/songs.data")
     .then(r => r.text())

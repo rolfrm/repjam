@@ -1,0 +1,28 @@
+[
+      { name: "Physical", sub: [
+          {name:"Flex", tag:"flex" },
+          {name:"Warmup", tag:"warmup"},
+          {name:"Static", tag:"static"},
+          {name:"Upper Body", tag:"upper-body"},
+          {name:"Lower Body", tag:"lower-body"},
+          {name:"Core", tag:"core"},
+          {name:"Cardio", tag:"cardio"},
+          {name:"Balance", tag:"balance"},
+          {name:"strength", tag:"strength|str"}
+      ]},
+      {name:"Music", sub:[
+          {name: "General", tag:"music"}
+          {name:"Guitar Fitness", tag:"guitar-fitness"},
+      ]},
+      {name: "Brain", sub:[
+          {name: "Math", tag:"math"},
+          {name: "Language", tag:"language"},
+          {name: "Memory", tag:"memory"},
+          {name: "Creativity", tag:"creativity"},
+          {name: "Typing", tag:"typing"},
+          {name: "Reflex", tag:"reflex"},
+          {name: "Speech", tag:"speech"},
+          {name: "Zen", tag:"zen"},
+          {name: "Coding", tag:"coding"},
+      ]},
+]
