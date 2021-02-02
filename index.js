@@ -26,8 +26,8 @@ load_table = str => str.split("\n")
     .map(x => x.split(";").map(x => x.trim()))
     .filter(x => x.length > 0);
 
-var countDownSound = new Audio('/media/s1.oga');
-var halftimeSound = new Audio('/media/s2.ogg');
+var countDownSound = new Audio('./media/s1.oga');
+var halftimeSound = new Audio('./media/s2.ogg');
 balls = []
 songs = []
 function load_vue() {
@@ -242,7 +242,7 @@ function load_vue() {
 }
 
 
-task = fetch("/exercises.hjson")
+task = fetch("./exercises.hjson")
     .then(response => response.text())
     .then(r => {
       balls = Hjson.parse(r);
